@@ -1,4 +1,4 @@
 ---
-title: Welcome to my blog
+title: Welcome to Professor McCarson's Spanish learning activities page.
 ---
 
