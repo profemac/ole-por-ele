@@ -1,7 +1,3 @@
----
-title: "SER"
-date: 2024-12-04
----
 <!DOCTYPE html>
 <html lang="es">
 <head>
