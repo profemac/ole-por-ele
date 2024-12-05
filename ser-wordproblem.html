@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad: Ser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFCB56;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .drag-box, .drop-zone {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .drop-zone {
+            min-width: 50px;
+            height: auto;
+            border: 2px dashed #ccc;
+            vertical-align: baseline;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .input-answer {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .hidden {
+            display: none;
+        }
+        .correct {
+            border-color: green;
+            color: green;
+        }
+        .incorrect {
+            border-color: red;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Actividad: Las formas del verbo <em>ser</em></h2>
+    <div class="container">
+        <p>Arrastra las palabras correctas al espacio correspondiente:</p>
+        <div id="sentence">
+            <p id="line1">Tú y yo <div class="drop-zone" data-answer="somos"></div> compañeros (house mates) de casa con mis tres hermanos. Si tú <div class="drop-zone" data-answer="eres"></div> la primera persona de tu familia en graduarte de la universidad (de primera generación) y yo <div class="drop-zone" data-answer="soy"></div> la segunda persona en mi familia en graduarme, además de que mi hermano mayor <div class="drop-zone" data-answer="es"></div> el primero y mi hermano menor <div class="drop-zone" data-answer="es"></div> el tercero en mi familia en obtener un título, ¿cuántas personas en nuestra casa son graduados universitarios de primera generación?</p>
+        </div>
+        <div id="options">
+            <!-- Conjugations will be dynamically scrambled -->
+        </div>
+        <input type="text" id="numericAnswer" class="input-answer" placeholder="Type the answer as a number">
+        <div class="button-container">
+            <button id="checkAnswers">Check Answers</button>
+            <button id="retry" class="hidden">Retry</button>
+            <button id="showTranslations" class="hidden">See English Translations</button>
+        </div>
+        <p id="score" style="text-align: center; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        // Conjugations of "ser"
+        const conjugations = ["somos", "eres", "soy", "es", "es"];
+
+        // Shuffle the items
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        shuffle(conjugations);
+
+        // Insert scrambled items into the options container
+        const optionsContainer = document.getElementById('options');
+        conjugations.forEach(conjugation => {
+            const dragBox = document.createElement('div');
+            dragBox.className = 'drag-box';
+            dragBox.draggable = true;
+            dragBox.textContent = conjugation;
+            dragBox.dataset.value = conjugation;
+            optionsContainer.appendChild(dragBox);
+        });
+
+        // Translations for the sentence
+        const translation = "You and I are housemates with my three siblings. If you are the first person in your family to graduate from university (first generation) and I am the second person in my family to graduate, in addition to my older brother being the first and my younger brother being the third in my family to earn a degree, how many people in our house are first-generation college graduates?";
+
+        // Drag-and-Drop Functionality
+        const dragBoxes = document.querySelectorAll('.drag-box');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const checkAnswersButton = document.getElementById('checkAnswers');
+        const retryButton = document.getElementById('retry');
+        const showTranslationsButton = document.getElementById('showTranslations');
+        const scoreDisplay = document.getElementById('score');
+        const numericAnswer = document.getElementById('numericAnswer');
+
+        dragBoxes.forEach(box => {
+            box.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.dataset.value);
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+            });
+
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                const droppedValue = e.dataTransfer.getData('text/plain');
+                if (!zone.textContent) {
+                    zone.textContent = droppedValue;
+                }
+            });
+        });
+
+        // Check Answers Functionality
+        checkAnswersButton.addEventListener('click', () => {
+            let correctCount = 0;
+            dropZones.forEach(zone => {
+                if (zone.textContent === zone.dataset.answer) {
+                    zone.classList.add('correct');
+                    correctCount++;
+                } else {
+                    zone.classList.add('incorrect');
+                }
+            });
+
+            const numericInput = numericAnswer.value.trim();
+            const isNumericCorrect = numericInput === "5";
+
+            if (isNumericCorrect) {
+                correctCount++;
+                numericAnswer.style.borderColor = "green";
+            } else {
+                numericAnswer.style.borderColor = "red";
+            }
+
+            scoreDisplay.textContent = `Your score: ${correctCount} / ${dropZones.length + 1}`;
+            retryButton.classList.remove('hidden');
+            if (correctCount === dropZones.length + 1) {
+                showTranslationsButton.classList.remove('hidden');
+            }
+            checkAnswersButton.disabled = true; // Disable the button after checking
+        });
+
+        // Retry Functionality
+        retryButton.addEventListener('click', () => {
+            dropZones.forEach(zone => {
+                zone.textContent = '';
+                zone.classList.remove('correct', 'incorrect');
+            });
+            numericAnswer.value = '';
+            numericAnswer.style.borderColor = '';
+            scoreDisplay.textContent = '';
+            checkAnswersButton.disabled = false;
+            retryButton.classList.add('hidden');
+            showTranslationsButton.classList.add('hidden');
+        });
+
+        // Show Translations Functionality
+        showTranslationsButton.addEventListener('click', () => {
+            alert(translation);
+            showTranslationsButton.disabled = true; // Disable after showing translations
+        });
+    </script>
+</body>
+</html>
