@@ -30,8 +30,8 @@
             font-size: 14px;
         }
         .drop-zone {
-            min-width: 50px;
-            height: auto;
+            min-width: 60px;
+            height: 12pt; /* Ensure at least 12 points height */
             border: 2px dashed #ccc;
             vertical-align: baseline;
         }
@@ -63,7 +63,13 @@
     <div class="container">
         <p>Arrastra las palabras correctas al espacio correspondiente:</p>
         <div id="sentence">
-            <p id="line1">Tú y yo <div class="drop-zone" data-answer="somos"></div> compañeros (house mates) de casa con mis tres hermanos. Si tú <div class="drop-zone" data-answer="eres"></div> la primera persona de tu familia en graduarte de la universidad (de primera generación) y yo <div class="drop-zone" data-answer="soy"></div> la segunda persona en mi familia en graduarme, además de que mi hermano mayor <div class="drop-zone" data-answer="es"></div> el primero y mi hermano menor <div class="drop-zone" data-answer="es"></div> el tercero en mi familia en obtener un título, ¿cuántas personas en nuestra casa son graduados universitarios de primera generación?</p>
+            <p id="line1">
+                Tú y yo <div class="drop-zone" data-answer="somos"></div> compañeros (house mates) de casa con mis tres hermanos. Si tú 
+                <div class="drop-zone" data-answer="eres"></div> la primera persona de tu familia en graduarte de la universidad (de primera generación) y yo 
+                <div class="drop-zone" data-answer="soy"></div> la segunda persona en mi familia en graduarme, además de que mi hermano mayor 
+                <div class="drop-zone" data-answer="es"></div> el primero y mi hermano menor <div class="drop-zone" data-answer="es"></div> el tercero en mi familia en obtener un título, ¿cuántas personas en nuestra casa 
+                <div class="drop-zone" data-answer="son"></div> graduados universitarios de primera generación?
+            </p>
         </div>
         <div id="options">
             <!-- Conjugations will be dynamically scrambled -->
@@ -79,7 +85,7 @@
 
     <script>
         // Conjugations of "ser"
-        const conjugations = ["somos", "eres", "soy", "es", "es"];
+        const conjugations = ["somos", "eres", "soy", "es", "es", "son"];
 
         // Shuffle the items
         function shuffle(array) {
