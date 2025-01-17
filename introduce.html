@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Check</title>
+    <script>
+        function checkAnswers() {
+            const answers = [
+                "Me llamo Carlos.",
+                "¿Cómo te llamas?",
+                "me llamo",
+                "Soy María.",
+                "Eres",
+                "Se llama Pablo.",
+                "¿Cómo se llama (usted)?",
+                "Cómo",
+                "¿Cómo te llamo?",
+                "te"
+            ];
+
+            let score = 0;
+
+            answers.forEach((answer, index) => {
+                const userAnswer = document.querySelector(`input[name='q${index + 1}']:checked`);
+                if (userAnswer && userAnswer.value === answer) {
+                    score++;
+                }
+            });
+
+            alert(`You got ${score} out of ${answers.length} correct!`);
+        }
+    </script>
+</head>
+<body>
+    <h1>Learning Check</h1>
+
+    <form id="quiz">
+        <div>
+            <p>1. How do you say “My name is Carlos” in Spanish?</p>
+            <label><input type="radio" name="q1" value="Me llamo Carlos."> Me llamo Carlos.</label><br>
+            <label><input type="radio" name="q1" value="Yo llamo Carlos."> Yo llamo Carlos.</label><br>
+            <label><input type="radio" name="q1" value="Te llamas Carlos."> Te llamas Carlos.</label>
+        </div>
+
+        <div>
+            <p>2. What’s the correct way to ask “What is your name?” informally?</p>
+            <label><input type="radio" name="q2" value="¿Cómo te llamas?"> ¿Cómo te llamas?</label><br>
+            <label><input type="radio" name="q2" value="¿Cómo eres?"> ¿Cómo eres?</label><br>
+            <label><input type="radio" name="q2" value="¿Cómo se llama (usted)?"> ¿Cómo se llama (usted)?</label>
+        </div>
+
+        <div>
+            <p>3. Choose the correct option to complete: “Hola, (yo) ___ Ana.”</p>
+            <label><input type="radio" name="q3" value="me llamo"> me llamo</label><br>
+            <label><input type="radio" name="q3" value="llamo"> llamo</label><br>
+            <label><input type="radio" name="q3" value="te llamas"> te llamas</label>
+        </div>
+
+        <div>
+            <p>4. What’s the correct translation for “I am Maria”?</p>
+            <label><input type="radio" name="q4" value="Soy María."> Soy María.</label><br>
+            <label><input type="radio" name="q4" value="Estoy María."> Estoy María.</label><br>
+            <label><input type="radio" name="q4" value="Es María."> Es María.</label>
+        </div>
+
+        <div>
+            <p>5. Which form of the verb SER is used to say “You are” (informal)?</p>
+            <label><input type="radio" name="q5" value="Eres"> Eres</label><br>
+            <label><input type="radio" name="q5" value="Es"> Es</label><br>
+            <label><input type="radio" name="q5" value="Soy"> Soy</label>
+        </div>
+
+        <div>
+            <p>6. What’s the correct form of the verb llamarse in “He is called Pablo”?</p>
+            <label><input type="radio" name="q6" value="Se llama Pablo."> Se llama Pablo.</label><br>
+            <label><input type="radio" name="q6" value="Me llamo Pablo."> Me llamo Pablo.</label><br>
+            <label><input type="radio" name="q6" value="Te llamas Pablo."> Te llamas Pablo.</label>
+        </div>
+
+        <div>
+            <p>7. How do you say “What is your name?” in a formal situation?</p>
+            <label><input type="radio" name="q7" value="¿Cómo se llama (usted)?"> ¿Cómo se llama (usted)?</label><br>
+            <label><input type="radio" name="q7" value="¿Cómo te llamas (tú)?"> ¿Cómo te llamas (tú)?</label><br>
+            <label><input type="radio" name="q7" value="¿Quién eres?"> ¿Quién eres?</label>
+        </div>
+
+        <div>
+            <p>8. Complete: “¿___ te llamas?”</p>
+            <label><input type="radio" name="q8" value="Cómo"> Cómo</label><br>
+            <label><input type="radio" name="q8" value="Qué"> Qué</label><br>
+            <label><input type="radio" name="q8" value="Quién"> Quién</label>
+        </div>
+
+        <div>
+            <p>9. Which of the following is an incorrect way to ask someone’s name?</p>
+            <label><input type="radio" name="q9" value="¿Cómo te llamo?"> ¿Cómo te llamo?</label><br>
+            <label><input type="radio" name="q9" value="¿Cuál es tu nombre?"> ¿Cuál es tu nombre?</label><br>
+            <label><input type="radio" name="q9" value="¿Cómo te llamas?"> ¿Cómo te llamas?</label>
+        </div>
+
+        <div>
+            <p>10. What is the reflexive pronoun for “tú” in the verb llamarse?</p>
+            <label><input type="radio" name="q10" value="te"> te</label><br>
+            <label><input type="radio" name="q10" value="me"> me</label><br>
+            <label><input type="radio" name="q10" value="se"> se</label>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Check Answers</button>
+    </form>
+</body>
+</html>
